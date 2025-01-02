@@ -4,6 +4,6 @@ namespace PaySpace.Calculator.Services.Abstractions
 {
     internal interface ITaxCalculator
     {
-        Task<CalculateResult> CalculateAsync(string code, decimal income);
+        Task<CalculateResult> CalculateAsync(string postalCode, decimal income);
     }
 }

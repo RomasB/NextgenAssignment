@@ -22,9 +22,9 @@ namespace PaySpace.Calculator.Services
             this.postalCodeService = postalCodeService;
         }
 
-        public async Task<CalculateResult> CalculateAsync(string code, decimal income)
+        public async Task<CalculateResult> CalculateAsync(string postalCode, decimal income)
         {
-            var calculationType = await postalCodeService.CalculatorTypeAsync(code);
+            var calculationType = await postalCodeService.CalculatorTypeAsync(postalCode);
             if (!calculationType.HasValue)
             {
                 return await TaxCalculators[calculationType.Value].CalculateAsync(income);

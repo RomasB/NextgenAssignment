@@ -38,12 +38,6 @@ namespace PaySpace.Calculator.API.Controllers
             }
         }
 
-        [HttpGet("history")]
-        public async Task<ActionResult<List<CalculatorHistory>>> History()
-        {
-            var history = await historyService.GetHistoryAsync();
 
-            return this.Ok(mapper.Map<List<CalculatorHistoryDto>>(history));
-        }
     }
 }
