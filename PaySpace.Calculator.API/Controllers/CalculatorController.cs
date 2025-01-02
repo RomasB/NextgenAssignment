@@ -1,9 +1,8 @@
 ﻿using MapsterMapper;
-
 using Microsoft.AspNetCore.Mvc;
-
 using PaySpace.Calculator.API.Models;
 using PaySpace.Calculator.Data.Models;
+using PaySpace.Calculator.Services;
 using PaySpace.Calculator.Services.Abstractions;
 using PaySpace.Calculator.Services.Exceptions;
 using PaySpace.Calculator.Services.Models;
@@ -12,19 +11,14 @@ namespace PaySpace.Calculator.API.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public sealed class CalculatorController(
-        ILogger<CalculatorController> logger,
-        IHistoryService historyService,
-        IMapper mapper)
-        : ControllerBase
+    public sealed class CalculatorController(TaxCalculator taxRateCalculator, IHistoryService historyService, IMapper mapper, ILogger<CalculatorController> logger) : ControllerBase
     {
         [HttpPost("calculate-tax")]
         public async Task<ActionResult<CalculateResult>> Calculate(CalculateRequest request)
         {
             try
             {
-
-                var result = 0; 
+                var result = await taxRateCalculator.CalculateAsync(request.PostalCode, request.Income);
 
                 await historyService.AddAsync(new CalculatorHistory
                 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-
 using PaySpace.Calculator.Services.Abstractions;
 using PaySpace.Calculator.Services.Calculators;
 
@@ -16,6 +15,8 @@ namespace PaySpace.Calculator.Services
             services.AddScoped<IFlatRateCalculator, FlatRateCalculator>();
             services.AddScoped<IFlatValueCalculator, FlatValueCalculator>();
             services.AddScoped<IProgressiveCalculator, ProgressiveCalculator>();
+
+            services.AddScoped<ITaxCalculator, TaxCalculator>();
 
             services.AddMemoryCache();
         }

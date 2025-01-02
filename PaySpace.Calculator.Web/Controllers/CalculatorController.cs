@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
 using PaySpace.Calculator.Web.Models;
 using PaySpace.Calculator.Web.Services.Abstractions;
 using PaySpace.Calculator.Web.Services.Models;
@@ -9,9 +8,9 @@ namespace PaySpace.Calculator.Web.Controllers
 {
     public class CalculatorController(ICalculatorHttpService calculatorHttpService) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var vm = this.GetCalculatorViewModelAsync();
+            var vm = await this.GetCalculatorViewModelAsync();
 
             return this.View(vm);
         }
@@ -57,7 +56,7 @@ namespace PaySpace.Calculator.Web.Controllers
 
             return new CalculatorViewModel
             {
-                PostalCodes = postalCodes,
+                PostalCodes = (SelectList)postalCodes.Select(x => new SelectListItem(x.Calculator, x.Calculator)),
                 Income = request.Income,
                 PostalCode = request.PostalCode ?? string.Empty
             };

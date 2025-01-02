@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Json;
-
 using PaySpace.Calculator.Web.Services.Abstractions;
 using PaySpace.Calculator.Web.Services.Models;
 
@@ -9,6 +8,8 @@ namespace PaySpace.Calculator.Web.Services
     {
         public async Task<List<PostalCode>> GetPostalCodesAsync()
         {
+            using var httpClient = new HttpClient();
+
             var response = await httpClient.GetAsync("api/posta1code");
             if (!response.IsSuccessStatusCode)
             {

@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddMapster();
 
 builder.Services.AddCalculatorServices();
+
 builder.Services.AddDataServices(builder.Configuration);
 
 var app = builder.Build();
