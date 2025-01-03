@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 using PaySpace.Calculator.Data;
 using PaySpace.Calculator.Data.Models;
 using PaySpace.Calculator.Services.Abstractions;

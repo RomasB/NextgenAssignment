@@ -1,9 +1,10 @@
-﻿using PaySpace.Calculator.Services.Models;
+﻿using PaySpace.Calculator.Data.Models;
+using PaySpace.Calculator.Services.Models;
 
 namespace PaySpace.Calculator.Services.Abstractions
 {
-    internal interface ITaxCalculator
+    public interface ITaxCalculator
     {
-        Task<CalculateResult> CalculateAsync(string postalCode, decimal income);
+        Task<CalculateResult> CalculateAsync(CalculatorType calculatorType, decimal income);
     }
 }

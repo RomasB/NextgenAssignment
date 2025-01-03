@@ -11,11 +11,11 @@ namespace PaySpace.Calculator.Services
             services.AddScoped<IPostalCodeService, PostalCodeService>();
             services.AddScoped<IHistoryService, HistoryService>();
             services.AddScoped<ICalculatorSettingsService, CalculatorSettingsService>();
+            services.AddScoped<ITaxCalculatorService, TaxCalculatorService>();
 
             services.AddScoped<IFlatRateCalculator, FlatRateCalculator>();
             services.AddScoped<IFlatValueCalculator, FlatValueCalculator>();
             services.AddScoped<IProgressiveCalculator, ProgressiveCalculator>();
-
             services.AddScoped<ITaxCalculator, TaxCalculator>();
 
             services.AddMemoryCache();

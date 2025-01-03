@@ -8,11 +8,9 @@ namespace PaySpace.Calculator.Data
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PostalCode>()
-                .HasData(GetPostalCodes());
-
-            modelBuilder.Entity<CalculatorSetting>()
-                .HasData(GetCalculatorSettings());
+            modelBuilder.Entity<PostalCode>().HasData(GetPostalCodes());
+            modelBuilder.Entity<CalculatorSetting>().HasData(GetCalculatorSettings());
+            modelBuilder.Entity<CalculatorHistory>().HasData();
         }
 
         private static IEnumerable<PostalCode> GetPostalCodes()

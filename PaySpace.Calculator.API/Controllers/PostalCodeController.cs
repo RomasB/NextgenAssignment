@@ -9,7 +9,7 @@ namespace PaySpace.Calculator.API.Controllers
     [Route("api/[Controller]")]
     public sealed class PostalCodeController(IPostalCodeService postalCodeService, IMapper mapper, ILogger<PostalCodeController> logger) : ControllerBase
     {
-        [HttpGet("PostalCodes")]
+        [HttpGet("postal-codes")]
         public async Task<ActionResult<List<PostalCodeDto>>> History()
         {
             var history = await postalCodeService.GetPostalCodesAsync();

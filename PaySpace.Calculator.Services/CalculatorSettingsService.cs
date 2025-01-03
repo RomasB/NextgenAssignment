@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-
 using PaySpace.Calculator.Data;
 using PaySpace.Calculator.Data.Models;
 using PaySpace.Calculator.Services.Abstractions;
@@ -13,7 +12,7 @@ namespace PaySpace.Calculator.Services
         {
             return memoryCache.GetOrCreateAsync($"CalculatorSetting:{calculatorType}", entry =>
             {
-                return context.Set<CalculatorSetting>().AsNoTracking().Where(_ => _.Calculator == calculatorType).ToListAsync();
+                return context.Set<CalculatorSetting>().AsNoTracking().Where(x => x.Calculator == calculatorType).ToListAsync();
             })!;
         }
     }

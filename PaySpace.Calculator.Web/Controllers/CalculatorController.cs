@@ -56,9 +56,9 @@ namespace PaySpace.Calculator.Web.Controllers
 
             return new CalculatorViewModel
             {
-                PostalCodes = (SelectList)postalCodes.Select(x => new SelectListItem(x.Calculator, x.Calculator)),
-                Income = request.Income,
-                PostalCode = request.PostalCode ?? string.Empty
+                PostalCodes = new SelectList (postalCodes.Select(x => new SelectListItem { Value = x.Code, Text = x.Code }), nameof(SelectListItem.Value), nameof(SelectListItem.Text)),
+                Income = request is not null ? request.Income : 0,
+                PostalCode = request?.PostalCode ?? string.Empty
             };
         }
     }

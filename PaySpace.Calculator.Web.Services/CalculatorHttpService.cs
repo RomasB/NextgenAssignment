@@ -11,8 +11,7 @@ namespace PaySpace.Calculator.Web.Services
         public async Task<List<PostalCode>> GetPostalCodesAsync()
         {
             using var httpClient = new HttpClient();
-
-            var response = await httpClient.GetAsync($"{calculatorSettings.Value.ApiUrl}api/posta1code"); 
+            var response = await httpClient.GetAsync($"{calculatorSettings.Value.ApiUrl}/api/postalcode/postal-codes"); 
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"Cannot fetch postal codes, status code: {response.StatusCode}");
@@ -23,14 +22,26 @@ namespace PaySpace.Calculator.Web.Services
 
         public async Task<List<CalculatorHistory>> GetHistoryAsync()
         {
-            throw new NotImplementedException();
+            using var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"{calculatorSettings.Value.ApiUrl}/api/history/history");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Cannot fetch calculation history, status code: {response.StatusCode}");
+            }
+
+            return await response.Content.ReadFromJsonAsync<List<CalculatorHistory>>() ?? [];
         }
 
         public async Task<CalculateResult> CalculateTaxAsync(CalculateRequest calculationRequest)
         {
-            // https://localhost:7119/api/Calculator/calculate-tax
+            using var httpClient = new HttpClient();
+            var response = await httpClient.PostAsJsonAsync($"{calculatorSettings.Value.ApiUrl}/api/calculator/calculate-tax", calculationRequest);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Cannot fetch calculatios result, status code: {response.StatusCode}");
+            }
 
-            throw new NotImplementedException();
+            return await response.Content.ReadFromJsonAsync<CalculateResult>() ?? null;
         }
     }
 }

@@ -7,30 +7,28 @@ namespace PaySpace.Calculator.Services
     public class TaxCalculator : ITaxCalculator
     {
         private readonly Dictionary<CalculatorType, ITaxRateCalculator> TaxCalculators;
-        private readonly IPostalCodeService postalCodeService;
 
-        public TaxCalculator(IProgressiveCalculator progressiveCalculator, IFlatRateCalculator flatRateCalculator, IFlatValueCalculator flatValueCalculator, IPostalCodeService postalCodeService)
+        public TaxCalculator(IProgressiveCalculator progressiveCalculator, IFlatRateCalculator flatRateCalculator, IFlatValueCalculator flatValueCalculator)
         {
             TaxCalculators = new Dictionary<CalculatorType, ITaxRateCalculator>
                 {
                     { CalculatorType.Progressive, (ITaxRateCalculator)progressiveCalculator },
                     { CalculatorType.FlatRate, (ITaxRateCalculator)flatRateCalculator },
                     { CalculatorType.FlatValue, (ITaxRateCalculator)flatValueCalculator }
-                    // add calculators here
+                    // add calculator implementation here
                 };
-
-            this.postalCodeService = postalCodeService;
         }
 
-        public async Task<CalculateResult> CalculateAsync(string postalCode, decimal income)
+        public async Task<CalculateResult> CalculateAsync(CalculatorType calculatorType, decimal income)
         {
-            var calculationType = await postalCodeService.CalculatorTypeAsync(postalCode);
-            if (!calculationType.HasValue)
+            if (TaxCalculators.ContainsKey(calculatorType))
             {
-                return await TaxCalculators[calculationType.Value].CalculateAsync(income);
+                return await TaxCalculators[calculatorType].CalculateAsync(income);
             }
-
-            throw new ApplicationException("Postal code not found");
+            else
+            {
+                throw new NotImplementedException($"Calculator type {calculatorType} is not implemented");
+            }
         }
     }
 }
