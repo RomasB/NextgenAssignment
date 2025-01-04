@@ -1,5 +1,4 @@
 ﻿using MapsterMapper;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PaySpace.Calculator.API.Models;
 using PaySpace.Calculator.Data.Models;
@@ -10,7 +9,6 @@ namespace PaySpace.Calculator.API.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    [EnableCors("TaxCalculationAppPolicy")]
     public sealed class HistoryController(IHistoryService historyService, IMapper mapper, ILogger<HistoryController> logger) : ControllerBase
     {
         [HttpGet("history")]
@@ -20,14 +18,14 @@ namespace PaySpace.Calculator.API.Controllers
             {
                 var history = await historyService.GetHistoryAsync();
 
-                return this.Ok(mapper.Map<List<CalculatorHistoryDto>>(history));
+                return Ok(mapper.Map<List<CalculatorHistoryDto>>(history));
 
             }
             catch (HistoryException e)
             {
                 logger.LogError(e, e.Message);
 
-                return this.BadRequest(e.Message);
+                return BadRequest(e.Message);
             }
         }
     }
