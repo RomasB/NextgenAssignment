@@ -1,32 +1,28 @@
 ﻿using PaySpace.Calculator.Data.Models;
 using PaySpace.Calculator.Services.Abstractions;
+using PaySpace.Calculator.Services.Extensions;
 using PaySpace.Calculator.Services.Models;
 
 namespace PaySpace.Calculator.Services.Calculators
 {
-    internal sealed class ProgressiveCalculator : IProgressiveCalculator, ITaxRateCalculator
+    internal sealed class ProgressiveCalculator(ICalculatorSettingsService calculatorSettingsService) : IProgressiveCalculator, ITaxRateCalculator
     {
-        private readonly Dictionary<Func<decimal, bool>, decimal> TaxRates;
-
-        public ProgressiveCalculator()
-        {
-            TaxRates = new Dictionary<Func<decimal, bool>, decimal>
-            {
-                { x => x > 0 && x <= 8350, 0.1M },  
-                { x => x > 8350 && x <= 33950, 0.15M },
-                { x => x > 33950 && x <= 82250, 0.25M },
-                { x => x > 82250 && x <= 171550, 0.28M },
-                { x => x > 171550 && x <= 372950, 0.33M },
-                { x => x > 372950, 0.35M } 
-            };
-        }
+        private readonly CalculatorType calculatorType = CalculatorType.Progressive;
 
         public async Task<CalculateResult> CalculateAsync(decimal income)
         {
+            var settings = await calculatorSettingsService.GetSettingsAsync(calculatorType);
+
+            var setting = settings.First(x => (income > x.From || (income >= x.From && x.From == 0)) && (x.To is null || income <= x.To));
+            if (setting is null)
+            {
+                throw new InvalidOperationException($"No tax setting found for income {income}");
+            }
+
             return new CalculateResult()
             {
-                Calculator = CalculatorType.Progressive,
-                Tax = income * TaxRates.First(sw => sw.Key(income)).Value
+                Calculator = calculatorType,
+                Tax = income.ToTax(setting)
             };
         }
     }

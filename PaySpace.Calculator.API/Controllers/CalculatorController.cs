@@ -27,7 +27,5 @@ namespace PaySpace.Calculator.API.Controllers
                 return this.BadRequest(e.Message);
             }
         }
-
-
     }
 }

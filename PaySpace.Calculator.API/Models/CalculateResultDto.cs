@@ -2,8 +2,8 @@
 {
     public sealed class CalculateResultDto
     {
-        public string Calculator { get; set; }
+        public required string Calculator { get; set; }
 
-        public decimal Tax { get; set; }
+        public required decimal Tax { get; set; }
     }
 }

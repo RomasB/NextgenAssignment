@@ -2,8 +2,8 @@
 {
     public sealed class PostalCodeDto
     {
-        public string Code { get; set; }
+        public required string Code { get; set; }
 
-        public string Calculator { get; set; }
+        public required string Calculator { get; set; }
     }
 }

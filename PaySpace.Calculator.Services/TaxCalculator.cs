@@ -11,12 +11,12 @@ namespace PaySpace.Calculator.Services
         public TaxCalculator(IProgressiveCalculator progressiveCalculator, IFlatRateCalculator flatRateCalculator, IFlatValueCalculator flatValueCalculator)
         {
             TaxCalculators = new Dictionary<CalculatorType, ITaxRateCalculator>
-                {
-                    { CalculatorType.Progressive, (ITaxRateCalculator)progressiveCalculator },
-                    { CalculatorType.FlatRate, (ITaxRateCalculator)flatRateCalculator },
-                    { CalculatorType.FlatValue, (ITaxRateCalculator)flatValueCalculator }
-                    // add calculator implementation here
-                };
+            {
+                { CalculatorType.Progressive, (ITaxRateCalculator)progressiveCalculator },
+                { CalculatorType.FlatRate, (ITaxRateCalculator)flatRateCalculator },
+                { CalculatorType.FlatValue, (ITaxRateCalculator)flatValueCalculator }
+                // add calculator implementation here
+            };
         }
 
         public async Task<CalculateResult> CalculateAsync(CalculatorType calculatorType, decimal income)
@@ -25,10 +25,8 @@ namespace PaySpace.Calculator.Services
             {
                 return await TaxCalculators[calculatorType].CalculateAsync(income);
             }
-            else
-            {
-                throw new NotImplementedException($"Calculator type {calculatorType} is not implemented");
-            }
+
+            throw new NotImplementedException($"Calculator type {calculatorType} is not implemented");
         }
     }
 }

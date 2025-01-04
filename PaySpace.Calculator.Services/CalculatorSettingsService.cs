@@ -10,7 +10,7 @@ namespace PaySpace.Calculator.Services
     {
         public Task<List<CalculatorSetting>> GetSettingsAsync(CalculatorType calculatorType)
         {
-            return memoryCache.GetOrCreateAsync($"CalculatorSetting:{calculatorType}", entry =>
+            return memoryCache.GetOrCreateAsync($"CalculatorSettings:{calculatorType}", entry =>
             {
                 return context.Set<CalculatorSetting>().AsNoTracking().Where(x => x.Calculator == calculatorType).ToListAsync();
             })!;
