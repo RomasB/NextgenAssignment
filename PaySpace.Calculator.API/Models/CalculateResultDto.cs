@@ -1,6 +1,6 @@
 ﻿namespace PaySpace.Calculator.API.Models
 {
-    public sealed class CalculateResultDto
+    public sealed record class CalculateResultDto
     {
         public required string Calculator { get; set; }
 

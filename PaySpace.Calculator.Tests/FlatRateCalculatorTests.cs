@@ -10,9 +10,7 @@ namespace PaySpace.Calculator.Tests
     internal sealed class FlatRateCalculatorTests
     {
         private readonly CalculatorType calculatorType = CalculatorType.FlatRate;
-
         private Mock<ICalculatorSettingsService> mockCalculatorSettingsService = new();
-
         private FlatRateCalculator flatRateCalculator;
 
         [SetUp]

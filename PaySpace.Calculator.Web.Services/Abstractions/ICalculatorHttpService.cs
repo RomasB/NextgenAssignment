@@ -8,6 +8,6 @@ namespace PaySpace.Calculator.Web.Services.Abstractions
 
         Task<List<CalculatorHistory>> GetHistoryAsync();
 
-        Task<CalculateResult> CalculateTaxAsync(CalculateRequest calculationRequest);
+        Task<CalculateResult?> CalculateTaxAsync(CalculateRequest calculationRequest);
     }
 }

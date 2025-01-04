@@ -1,4 +1,5 @@
 ﻿using MapsterMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PaySpace.Calculator.API.Models;
 using PaySpace.Calculator.Services.Abstractions;
@@ -8,6 +9,7 @@ namespace PaySpace.Calculator.API.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
+    [EnableCors("TaxCalculationAppPolicy")]
     public sealed class PostalCodeController(IPostalCodeService postalCodeService, IMapper mapper, ILogger<PostalCodeController> logger) : ControllerBase
     {
         [HttpGet("postal-codes")]

@@ -13,10 +13,10 @@ namespace PaySpace.Calculator.Services.Calculators
         {
             var settings = await calculatorSettingsService.GetSettingsAsync(calculatorType);
 
-            var setting = settings.First(x => income >= x.From && (x.To is null || income < x.To));
+            var setting = settings.FirstOrDefault(x => income >= x.From);
             if (setting is null)
             {
-                throw new InvalidOperationException($"No tax setting found for income {income}");
+                throw new InvalidOperationException($"No tax setting found for {calculatorType.ToString()}.");
             }
 
             return new CalculateResult()

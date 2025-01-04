@@ -10,14 +10,14 @@ namespace PaySpace.Calculator.Web.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var vm = await this.GetCalculatorViewModelAsync();
+            var vm = await GetCalculatorViewModelAsync();
 
-            return this.View(vm);
+            return View(vm);
         }
 
         public async Task<IActionResult> History()
         {
-            return this.View(new CalculatorHistoryViewModel
+            return View(new CalculatorHistoryViewModel
             {
                 CalculatorHistory = await calculatorHttpService.GetHistoryAsync()
             });
@@ -27,7 +27,7 @@ namespace PaySpace.Calculator.Web.Controllers
         [ValidateAntiForgeryToken()]
         public async Task<IActionResult> Index(CalculateRequestViewModel request)
         {
-            if (this.ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -37,17 +37,17 @@ namespace PaySpace.Calculator.Web.Controllers
                         Income = request.Income
                     });
 
-                    return this.RedirectToAction(nameof(this.History));
+                    return RedirectToAction(nameof(History));
                 }
                 catch (Exception e)
                 {
-                    this.ModelState.AddModelError(string.Empty, e.Message);
+                    ModelState.AddModelError(string.Empty, e.Message);
                 }
             }
 
-            var vm = await this.GetCalculatorViewModelAsync(request);
+            var vm = await GetCalculatorViewModelAsync(request);
 
-            return this.View(vm);
+            return View(vm);
         }
 
         private async Task<CalculatorViewModel> GetCalculatorViewModelAsync(CalculateRequestViewModel? request = null)

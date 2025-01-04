@@ -11,7 +11,7 @@ namespace PaySpace.Calculator.Services
             var calculationType = await postalCodeService.CalculatorTypeAsync(postalCode);
             if (calculationType is null)
             {
-                throw new ApplicationException($"Postal code {postalCode} is not supported");
+                throw new ApplicationException($"Postal code '{postalCode}' is not supported");
             }
 
             var result = await taxRateCalculator.CalculateAsync(calculationType.Value, income);

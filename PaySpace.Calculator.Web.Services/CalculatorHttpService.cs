@@ -32,7 +32,7 @@ namespace PaySpace.Calculator.Web.Services
             return await response.Content.ReadFromJsonAsync<List<CalculatorHistory>>() ?? [];
         }
 
-        public async Task<CalculateResult> CalculateTaxAsync(CalculateRequest calculationRequest)
+        public async Task<CalculateResult?> CalculateTaxAsync(CalculateRequest calculationRequest)
         {
             using var httpClient = new HttpClient();
             var response = await httpClient.PostAsJsonAsync($"{calculatorSettings.Value.ApiUrl}/api/calculator/calculate-tax", calculationRequest);

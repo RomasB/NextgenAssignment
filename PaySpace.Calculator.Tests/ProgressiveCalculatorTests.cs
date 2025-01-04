@@ -10,9 +10,7 @@ namespace PaySpace.Calculator.Tests
     internal sealed class ProgressiveCalculatorTests
     {
         private readonly CalculatorType calculatorType = CalculatorType.Progressive;
-
         private Mock<ICalculatorSettingsService> mockCalculatorSettingsService = new();
-
         private ProgressiveCalculator progressiveCalculator;
 
         [SetUp]

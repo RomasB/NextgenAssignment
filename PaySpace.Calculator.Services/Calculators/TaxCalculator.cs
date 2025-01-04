@@ -2,7 +2,7 @@
 using PaySpace.Calculator.Services.Abstractions;
 using PaySpace.Calculator.Services.Models;
 
-namespace PaySpace.Calculator.Services
+namespace PaySpace.Calculator.Services.Calculators
 {
     public class TaxCalculator : ITaxCalculator
     {
@@ -21,12 +21,12 @@ namespace PaySpace.Calculator.Services
 
         public async Task<CalculateResult> CalculateAsync(CalculatorType calculatorType, decimal income)
         {
-            if (TaxCalculators.ContainsKey(calculatorType))
+            if (!TaxCalculators.ContainsKey(calculatorType))
             {
-                return await TaxCalculators[calculatorType].CalculateAsync(income);
+                throw new NotImplementedException($"Calculator type '{calculatorType}' is not implemented");
             }
 
-            throw new NotImplementedException($"Calculator type {calculatorType} is not implemented");
+            return await TaxCalculators[calculatorType].CalculateAsync(income);
         }
     }
 }

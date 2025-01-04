@@ -1,6 +1,6 @@
 ﻿namespace PaySpace.Calculator.API.Models
 {
-    public sealed class PostalCodeDto
+    public sealed record class PostalCodeDto
     {
         public required string Code { get; set; }
 

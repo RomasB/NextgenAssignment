@@ -1,4 +1,5 @@
 ﻿using MapsterMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PaySpace.Calculator.API.Models;
 using PaySpace.Calculator.Data.Models;
@@ -9,6 +10,7 @@ namespace PaySpace.Calculator.API.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
+    [EnableCors("TaxCalculationAppPolicy")]
     public sealed class HistoryController(IHistoryService historyService, IMapper mapper, ILogger<HistoryController> logger) : ControllerBase
     {
         [HttpGet("history")]
